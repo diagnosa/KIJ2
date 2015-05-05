@@ -10,8 +10,10 @@
         $query = " 
             SELECT 
                 username,
+                name,
                 password,
-                salt 
+                salt,
+                email
             FROM user 
             WHERE 
                 username = :username 
@@ -50,7 +52,7 @@
                  
                 $_SESSION['user'] = $row; 
                  
-                header("Location: crs.html"); 
+                header("Location: csr.php"); 
                 exit;
             }
             else // jika passwordnya beda
@@ -76,7 +78,7 @@
 <head>
     <meta charset="UTF-8" /> 
     <title>
-        Admin Log in
+        Log in
     </title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/login.css" />

@@ -1,3 +1,6 @@
+<?php
+    require("session.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +20,9 @@
 
 <div class="page-header">
     <h3>Certificate Signing Request</h3>
+    <a href="logout.php">
+    <input class="btn btn-danger pull-right" type="button" value="Log Out">
+    </a>
 </div>
 
 <!-- Registration form - START -->
