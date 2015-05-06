@@ -2,6 +2,15 @@
 include('File/X509.php');
 include('Crypt/RSA.php');
 
+
+$host = 'localhost:8081';
+$username = 'root';
+$password = '';
+$database = 'certificate_authority';
+$table = 'csr';
+
+mysql_connect('$host', '$username', '$password') or die(mysql_error());
+mysql_select_db('$database') or die(mysql_error());
 // create private key for CA cert
 // (you should probably print it out if you want to reuse it)
 $CAPrivKey = new Crypt_RSA();
@@ -20,10 +29,12 @@ $pubKey->setPublicKey();
 // create a self-signed cert that'll serve as the CA
 $subject = new File_X509();
 $subject->setPublicKey($pubKey);
-$subject->setDNProp('id-at-countryName', 'Indonesia');
-$subject->setDNProp('id-at-organizationName', 'selfCA');
-$subject->setDNProp('id-at-commonName', 'friendlyname');
-$subject->setDNProp('id-at-stateOrProvinceName', 'Jawa Timur');
+$subject->setDNProp('$_POST[CommonName]', 'Indonesia');
+$subject->setDNProp('$_POST[Organization]', 'selfCA');
+$subject->setDNProp('$_POST[OrganizationalUnit]', 'friendlyname');
+$subject->setDNProp('$_POST[CityLocality]', 'Jawa Timur');
+$subject->setDNProp('$_POST[StateProvince]', 'Jawa Timur');
+$subject->setDNProp('$_POST[CountryRegion]', 'Jawa Timur');
 $subject->setDomain('www.google.com');
 
 
