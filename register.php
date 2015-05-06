@@ -154,7 +154,7 @@
     <title>
         Register
     </title>
-    <link href="bootstrap/s/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/login.css" />
 </head>
 <body>

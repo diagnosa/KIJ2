@@ -21,7 +21,7 @@
 <div class="page-header">
     <h3>Certificate Signing Request</h3>
     <a href="logout.php">
-    <input class="btn btn-danger pull-right" type="button" value="Log Out">
+    <input class="btn btn-danger page-header pull-right" type="button" value="Log Out">
     </a>
 </div>
 
