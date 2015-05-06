@@ -20,7 +20,12 @@ $pubKey->setPublicKey();
 // create a self-signed cert that'll serve as the CA
 $subject = new File_X509();
 $subject->setPublicKey($pubKey);
-$subject->setDNProp('id-at-organizationName', 'phpseclib demo CA');
+$subject->setDNProp('id-at-countryName', 'Indonesia');
+$subject->setDNProp('id-at-organizationName', 'selfCA');
+$subject->setDNProp('id-at-commonName', 'friendlyname');
+$subject->setDNProp('id-at-stateOrProvinceName', 'Jawa Timur');
+$subject->setDomain('www.google.com');
+
 
 $issuer = new File_X509();
 $issuer->setPrivateKey($CAPrivKey);
@@ -33,7 +38,8 @@ $x509->setSerialNumber(chr(1));
 $x509->makeCA();
 
 $result = $x509->sign($issuer, $subject);
-$filename = 'test-download.cert';
+
+$filename = 'test-download.crt';
 $htmlcode1 = $x509->saveX509($result)."\r\n\r\n";
 
 
@@ -45,33 +51,4 @@ header("Content-Transfer-Encoding: binary");
 
 echo $htmlcode1;
 
-
-// create private key / x.509 cert for stunnel / website
-// $privKey = new Crypt_RSA();
-// extract($privKey->createKey());
-// $privKey->loadKey($privatekey);
-
-// $pubKey = new Crypt_RSA();
-// $pubKey->loadKey($publickey);
-// $pubKey->setPublicKey();
-
-// $subject = new File_X509();
-// $subject->setPublicKey($pubKey);
-// $subject->setDNProp('id-at-organizationName', 'phpseclib demo cert');
-// $subject->setDomain('www.google.com');
-
-// $issuer = new File_X509();
-// $issuer->setPrivateKey($CAPrivKey);
-// $issuer->setDN($CASubject);
-
-// $x509 = new File_X509();
-// $x509->setStartDate('-1 month');
-// $x509->setEndDate('+1 year');
-// $x509->setSerialNumber(chr(1));
-
-// $result = $x509->sign($issuer, $subject);
-// // echo "the stunnel.pem contents are as follows:\r\n\r\n";
-// // echo $privKey->getPrivateKey();
-// // echo "\r\n";
-// // echo $x509->saveX509($result);
-// // echo "\r\n";
+?>
