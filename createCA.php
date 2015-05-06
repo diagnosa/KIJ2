@@ -17,11 +17,6 @@ $pubKey->setPublicKey();
 // echo "\r\n\r\n";
 
 
-
-
-
-
-
 // create a self-signed cert that'll serve as the CA
 $subject = new File_X509();
 $subject->setPublicKey($pubKey);
@@ -38,43 +33,45 @@ $x509->setSerialNumber(chr(1));
 $x509->makeCA();
 
 $result = $x509->sign($issuer, $subject);
-echo "the CA cert to be imported into the browser is as follows:\r\n\r\n";
-echo $x509->saveX509($result);
-echo "\r\n\r\n";
+$filename = 'test-download.cert';
+$htmlcode1 = $x509->saveX509($result)."\r\n\r\n";
 
 
+header("Cache-Control: public");
+header("Content-Description: File Transfer");
+header("Content-Disposition: attachment; filename=$filename");
+header("Content-Type: application/octet-stream; "); 
+header("Content-Transfer-Encoding: binary");
 
-
-
-
+echo $htmlcode1;
 
 
 // create private key / x.509 cert for stunnel / website
-$privKey = new Crypt_RSA();
-extract($privKey->createKey());
-$privKey->loadKey($privatekey);
+// $privKey = new Crypt_RSA();
+// extract($privKey->createKey());
+// $privKey->loadKey($privatekey);
 
-$pubKey = new Crypt_RSA();
-$pubKey->loadKey($publickey);
-$pubKey->setPublicKey();
+// $pubKey = new Crypt_RSA();
+// $pubKey->loadKey($publickey);
+// $pubKey->setPublicKey();
 
-$subject = new File_X509();
-$subject->setPublicKey($pubKey);
-$subject->setDNProp('id-at-organizationName', 'phpseclib demo cert');
-$subject->setDomain('www.google.com');
+// $subject = new File_X509();
+// $subject->setPublicKey($pubKey);
+// $subject->setDNProp('id-at-organizationName', 'phpseclib demo cert');
+// $subject->setDomain('www.google.com');
 
-$issuer = new File_X509();
-$issuer->setPrivateKey($CAPrivKey);
-$issuer->setDN($CASubject);
+// $issuer = new File_X509();
+// $issuer->setPrivateKey($CAPrivKey);
+// $issuer->setDN($CASubject);
 
-$x509 = new File_X509();
-$x509->setStartDate('-1 month');
-$x509->setEndDate('+1 year');
-$x509->setSerialNumber(chr(1));
+// $x509 = new File_X509();
+// $x509->setStartDate('-1 month');
+// $x509->setEndDate('+1 year');
+// $x509->setSerialNumber(chr(1));
 
-$result = $x509->sign($issuer, $subject);
-// echo "the stunnel.pem contents are as follows:\r\n\r\n";
-// echo $privKey->getPrivateKey();
-// echo "\r\n";
-// echo $x509->saveX509($result);
-// echo "\r\n";
+// $result = $x509->sign($issuer, $subject);
+// // echo "the stunnel.pem contents are as follows:\r\n\r\n";
+// // echo $privKey->getPrivateKey();
+// // echo "\r\n";
+// // echo $x509->saveX509($result);
+// // echo "\r\n";
