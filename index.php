@@ -50,7 +50,7 @@
                 unset($row['salt']); 
                 unset($row['password']); 
                  
-                $_SESSION['user'] = $row; 
+                $_SESSION['user'] = $row['username']; 
                  
                 header("Location: csr.php"); 
                 exit;
